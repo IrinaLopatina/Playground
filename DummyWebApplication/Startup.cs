@@ -44,7 +44,7 @@ namespace DummyWebApplication
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Branch 2-1!");
+                await context.Response.WriteAsync("Branch 2-2!");
             });
         }
     }
