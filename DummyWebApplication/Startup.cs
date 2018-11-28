@@ -44,7 +44,7 @@ namespace DummyWebApplication
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("MVC is not used! Branch 3 - 2.");
+                await context.Response.WriteAsync("MVC is not used! Branch 3 - 3.");
             });
         }
     }
