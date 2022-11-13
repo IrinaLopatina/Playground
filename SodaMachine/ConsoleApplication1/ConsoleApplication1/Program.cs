@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsoleApplication1.Model.SodaTypes;
+using System;
 
 namespace ConsoleApplication1
 {
@@ -24,7 +21,7 @@ namespace ConsoleApplication1
         /// </summary>
         public void Start()
         {
-            var inventory = new[] { new Soda { Name = "coke", Nr = 5 }, new Soda { Name = "sprite", Nr = 3 }, new Soda { Name = "fanta", Nr = 3 } };
+            var inventory = new ISoda[] { new Coke { Nr = 5 }, new Sprite { Nr = 3 }, new Fanta { Nr = 3 } };
 
             while (true)
             {
@@ -49,68 +46,27 @@ namespace ConsoleApplication1
                 {
                     // split string on space
                     var csoda = input.Split(' ')[1];
+
+                    ISoda soda;
+
                     //Find out witch kind
                     switch (csoda)
                     {
                         case "coke":
-                            var coke = inventory[0];
-                            if (coke.Name == csoda && money > 19 && coke.Nr > 0)
-                            {
-                                Console.WriteLine("Giving coke out");
-                                money -= 20;
-                                Console.WriteLine("Giving " + money + " out in change");
-                                money = 0;
-                                coke.Nr--;
-                            }
-                            else if (coke.Name == csoda && coke.Nr == 0)
-                            {
-                                Console.WriteLine("No coke left");
-                            }
-                            else if (coke.Name == csoda)
-                            {
-                                Console.WriteLine("Need " + (20 - money) + " more");
-                            }
-
+                            soda = inventory[0];
+                            OrderSoda(csoda, soda);
                             break;
-                        case "fanta":
-                            var fanta = inventory[2];
-                            if (fanta.Name == csoda && money > 14 && fanta.Nr >= 0)
-                            {
-                                Console.WriteLine("Giving fanta out");
-                                money -= 15;
-                                Console.WriteLine("Giving " + money + " out in change");
-                                money = 0;
-                                fanta.Nr--;
-                            }
-                            else if (fanta.Name == csoda && fanta.Nr == 0)
-                            {
-                                Console.WriteLine("No fanta left");
-                            }
-                            else if (fanta.Name == csoda)
-                            {
-                                Console.WriteLine("Need " + (15 - money) + " more");
-                            }
 
-                            break;
                         case "sprite":
-                            var sprite = inventory[1];
-                            if (sprite.Name == csoda && money > 14 && sprite.Nr > 0)
-                            {
-                                Console.WriteLine("Giving sprite out");
-                                money -= 15;
-                                Console.WriteLine("Giving " + money + " out in change");
-                                money = 0;
-                                sprite.Nr--;
-                            }
-                            else if (sprite.Name == csoda && sprite.Nr == 0)
-                            {
-                                Console.WriteLine("No sprite left");
-                            }
-                            else if (sprite.Name == csoda)
-                            {
-                                Console.WriteLine("Need " + (15 - money) + " more");
-                            }
+                            soda = inventory[1];
+                            OrderSoda(csoda, soda);
                             break;
+
+                        case "fanta":
+                            soda = inventory[2];
+                            OrderSoda(csoda, soda);
+                            break;
+
                         default:
                             Console.WriteLine("No such soda");
                             break;
@@ -156,11 +112,25 @@ namespace ConsoleApplication1
 
             }
         }
-    }
-    public class Soda
-    {
-        public string Name { get; set; }
-        public int Nr { get; set; }
 
+        private static void OrderSoda(string csoda, ISoda soda)
+        {
+            if (soda.Name == csoda && money >= soda.Price && soda.Nr > 0)
+            {
+                Console.WriteLine("Giving " + soda.Name + " out");
+                money -= soda.Price;
+                Console.WriteLine("Giving " + money + " out in change");
+                money = 0;
+                soda.Nr--;
+            }
+            else if (soda.Name == csoda && soda.Nr == 0)
+            {
+                Console.WriteLine("No " + soda.Name + " left");
+            }
+            else if (soda.Name == csoda)
+            {
+                Console.WriteLine("Need " + (soda.Price - money) + " more");
+            }
+        }
     }
 }

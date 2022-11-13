@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\SodaTypes\Coke.cs" />
+    <Compile Include="Model\SodaTypes\Fanta.cs" />
+    <Compile Include="Model\SodaTypes\ISoda.cs" />
+    <Compile Include="Model\SodaTypes\Sprite.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
