@@ -1,6 +1,6 @@
-﻿using ConsoleApplication1.Model.SodaTypes;
+﻿using SodaMachine.Model.SodaTypes;
 
-namespace ConsoleApplication1.Model.Inventory
+namespace SodaMachine.Model.Inventory
 {
     public class InventoryItem
     {

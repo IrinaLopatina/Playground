@@ -1,16 +1,16 @@
-﻿using ConsoleApplication1.Model.Inventory;
+﻿using SodaMachine.Model.Inventory;
 using System;
 
-namespace ConsoleApplication1.Model
+namespace SodaMachine.Model
 {
-    public class SodaMachine
+    public class MySodaMachine
     {
         private static int money;
 
         private readonly IInventory Inventory;
 
 
-        public SodaMachine(IInventory inventory)
+        public MySodaMachine(IInventory inventory)
         {
             Inventory = inventory;
         }

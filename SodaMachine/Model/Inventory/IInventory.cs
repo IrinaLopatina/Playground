@@ -1,4 +1,4 @@
-﻿namespace ConsoleApplication1.Model.Inventory
+﻿namespace SodaMachine.Model.Inventory
 {
     public interface IInventory
     {

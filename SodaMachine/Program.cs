@@ -1,14 +1,14 @@
-﻿using ConsoleApplication1.Model;
-using ConsoleApplication1.Model.Inventory;
+﻿using SodaMachine.Model;
+using SodaMachine.Model.Inventory;
 
-namespace ConsoleApplication1
+namespace SodaMachine
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
             var inventory = new Inventory();
-            var sodaMachine = new SodaMachine(inventory);
+            var sodaMachine = new MySodaMachine(inventory);
             sodaMachine.Start();
         }
     }

@@ -1,9 +1,9 @@
-﻿using ConsoleApplication1.Model.SodaTypes;
+﻿using SodaMachine.Model.SodaTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConsoleApplication1.Model.Inventory
+namespace SodaMachine.Model.Inventory
 {
     public class Inventory : IInventory
     {

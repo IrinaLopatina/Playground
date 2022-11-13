@@ -1,4 +1,4 @@
-﻿namespace ConsoleApplication1.Model.SodaTypes
+﻿namespace SodaMachine.Model.SodaTypes
 {
     public interface ISoda
     {
