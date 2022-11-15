@@ -65,10 +65,7 @@
     <Compile Include="Model\Inventory\Inventory.cs" />
     <Compile Include="Model\Inventory\InventoryItem.cs" />
     <Compile Include="Model\MySodaMachine.cs" />
-    <Compile Include="Model\SodaTypes\Coke.cs" />
-    <Compile Include="Model\SodaTypes\Fanta.cs" />
-    <Compile Include="Model\SodaTypes\ISoda.cs" />
-    <Compile Include="Model\SodaTypes\Sprite.cs" />
+    <Compile Include="Model\Inventory\Soda.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

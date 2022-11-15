@@ -2,7 +2,9 @@
 {
     public interface IInventory
     {
-        int OrderSoda(string sodaType, int money);
-        void SmsOrderSoda(string sodaType);
+        InventoryItem GetInventoryItemByName(string sodaName);
+        void AddInventoryItem(InventoryItem item);
+        int OrderSoda(string sodaName, int money);
+        void SmsOrderSoda(string sodaName);
     }
 }
