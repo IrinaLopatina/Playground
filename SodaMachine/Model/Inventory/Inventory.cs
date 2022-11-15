@@ -4,15 +4,20 @@ using System.Linq;
 
 namespace SodaMachine.Model.Inventory
 {
+    /// <summary>
+    /// Represents inventory of soda machine
+    /// </summary>
     public class Inventory : IInventory
     {
         public IList<InventoryItem> Items { get;  private set; } = new List<InventoryItem>();
 
+        //inheritdoc
         public InventoryItem GetInventoryItemByName(string sodaName)
         {
             return Items.ToList().FirstOrDefault(x => x.Soda.Name == sodaName);
         }
 
+        //inheritdoc
         public void AddInventoryItem(InventoryItem item)
         {
             var existingItem = GetInventoryItemByName(item.Soda.Name);
@@ -27,6 +32,7 @@ namespace SodaMachine.Model.Inventory
             return;
         }
 
+        //inheritdoc
         public int OrderSoda(string sodaName, int money)
         {
             var item = GetInventoryItemByName(sodaName);
@@ -55,6 +61,7 @@ namespace SodaMachine.Model.Inventory
             return money;
         }
 
+        //inheritdoc
         public void SmsOrderSoda(string sodaName)
         {
             var item = GetInventoryItemByName(sodaName);

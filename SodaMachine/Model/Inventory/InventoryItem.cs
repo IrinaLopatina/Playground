@@ -1,5 +1,8 @@
 ﻿namespace SodaMachine.Model.Inventory
 {
+    /// <summary>
+    /// Represents inventory item of inventory
+    /// </summary>
     public class InventoryItem
     {
         public Soda Soda { get; private set; }
