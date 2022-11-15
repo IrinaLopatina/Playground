@@ -55,6 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SodaMachine\SodaMachine.csproj">
       <Project>{9dfc3066-31e8-4483-a3ea-421e68b5cd14}</Project>
       <Name>SodaMachine</Name>
