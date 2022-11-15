@@ -8,7 +8,70 @@ namespace TestSodaMachine.Model
     [TestClass]
     public class InventoryTest
     {
-        readonly Inventory inventory = new Inventory();
+
+        readonly Inventory inventory;
+
+        public InventoryTest() 
+        {
+            inventory = new Inventory();
+            inventory.AddInventoryItem(new InventoryItem(new Soda("coke", 20), 5));
+            inventory.AddInventoryItem(new InventoryItem(new Soda("sprite", 15), 3));
+        }
+
+        [TestMethod]
+        public void GetInventoryItemByName_WhenExistingItem_ReturnsItem()
+        {
+            //act
+            var item = inventory.GetInventoryItemByName("coke");
+
+            //assert
+            Assert.IsNotNull(item);
+            Assert.AreEqual(item.Quantity, 5);
+            Assert.AreEqual(item.Soda.Name, "coke");
+            Assert.AreEqual(item.Soda.Price, 20);
+        }
+
+        [TestMethod]
+        public void GetInventoryItemByName_WhenNonExistingItem_ReturnsNull()
+        {
+            //act
+            var item = inventory.GetInventoryItemByName("fanta");
+
+            //assert
+            Assert.IsNull(item);
+        }
+
+        [TestMethod]
+        public void AddInventoryItem_WhenNotExistingItem_AddsItem()
+        {
+            //act
+            inventory.AddInventoryItem(new InventoryItem(new Soda("fanta", 15), 1));
+
+            //assert
+            Assert.AreEqual(inventory.Items.Count, 3);
+            var item = inventory.GetInventoryItemByName("fanta");
+            Assert.IsNotNull(item);
+            Assert.AreEqual(item.Quantity, 1);
+            Assert.AreEqual(item.Soda.Name, "fanta");
+            Assert.AreEqual(item.Soda.Price, 15);
+        }
+
+        [TestMethod]
+        public void AddInventoryItem_WhenExistingItem_GivesErrorMessage()
+        {
+            //arrange
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            inventory.AddInventoryItem(new InventoryItem(new Soda("coke", 20), 3));
+
+            //assert
+            Assert.AreEqual(inventory.Items.Count, 2);
+
+            var output = stringWriter.ToString();
+            Assert.AreEqual("Item coke exists\r\n", output);
+        }
 
         [TestMethod]
         public void OrderSoda_WhenUnknownSodaType_GivesMessageAndDoesNotReduceMoney()

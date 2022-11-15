@@ -1,13 +1,14 @@
-﻿using SodaMachine.Model.SodaTypes;
-
-namespace SodaMachine.Model.Inventory
+﻿namespace SodaMachine.Model.Inventory
 {
+    /// <summary>
+    /// Represents inventory item of inventory
+    /// </summary>
     public class InventoryItem
     {
-        public ISoda Soda { get; private set; }
+        public Soda Soda { get; private set; }
         public int Quantity { get; private set; }
 
-        public InventoryItem(ISoda soda, int quantity)
+        public InventoryItem(Soda soda, int quantity)
         {
             Soda = soda;
             Quantity = quantity;
