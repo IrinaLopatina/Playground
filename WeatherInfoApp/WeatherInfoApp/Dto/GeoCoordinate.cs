@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WeatherInfoApp.Dto
 {
-    internal class GeoCoordinate
+    public class GeoCoordinate
     {
-        double Latitude { get; set; }
-        double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

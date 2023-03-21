@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace WeatherInfoApp.Dto
 {
-    internal class Location
+    public class Location
     {
-        string Name { get; set; }
-        GeoCoordinate Coordinate { get; set; }
-        string Url { get; set; }
+        public string Name { get; set; }
+        public GeoCoordinate Coordinate { get; set; }
+        public string Url { get; set; }
     }
 }
