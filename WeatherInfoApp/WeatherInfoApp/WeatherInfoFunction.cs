@@ -12,7 +12,7 @@ namespace WeatherInfoApp
     public class WeatherInfoFunction
     {
         [FunctionName("WeatherInfoFunction")]
-        public void Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer,
+        public void Run([TimerTrigger("0 */1 * * * *")]TimerInfo timerInfo,
                         [CosmosDB(
                             databaseName: "SampleDB",
                             containerName: "Locations",
