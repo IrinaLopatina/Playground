@@ -1,30 +1,40 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.WebJobs.Extensions.CosmosDB;
 using WeatherInfoApp.Dto;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WeatherInfoApp
 {
     public class WeatherInfoFunction
     {
+        private readonly string clientName = "WeatherInfoFunctionHttpClient";
+        private readonly HttpClient httpClient;
+
+        public WeatherInfoFunction(IHttpClientFactory httpClientFactory)
+        {
+            httpClient = httpClientFactory.CreateClient(clientName);
+        }
+
         [FunctionName("WeatherInfoFunction")]
-        public void Run([TimerTrigger("0 */1 * * * *")]TimerInfo timerInfo,
-                        [CosmosDB(
-                            databaseName: "SampleDB",
-                            containerName: "Locations",
-                            Connection = "CosmosDBConnection",
-                            SqlQuery = "SELECT * FROM c")]IEnumerable<Location> locations,
-                         ILogger log)
+        public async Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo timerInfo,
+                              [CosmosDB(
+                                databaseName: "SampleDB",
+                                containerName: "Locations",
+                                Connection = "CosmosDBConnection",
+                                SqlQuery = "SELECT * FROM c")]IEnumerable<Location> locations,
+                               ILogger log)
         {
             log.LogInformation($"WeatherInfoFunction executed at: {DateTime.Now}");
 
             foreach (Location location in locations)
             {
                 log.LogInformation(location.Name);
+
+
+                var response = await httpClient.GetAsync(location.Url);
             }
         }
     }
