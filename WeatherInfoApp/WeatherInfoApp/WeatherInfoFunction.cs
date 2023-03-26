@@ -6,6 +6,7 @@ using WeatherInfoApp.Dto;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Polly;
 
 namespace WeatherInfoApp
 {
@@ -30,11 +31,21 @@ namespace WeatherInfoApp
         {
             log.LogInformation($"WeatherInfoFunction executed at: {DateTime.Now}");
 
+            //Define Polly policies
+            var policy = Policy.Handle<Exception>()
+                               .WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(500), (e, t, i, c) => log.LogError($"Error '{e.Message}' at retry #{i}"));
+            var pollyContext = new Context();
+          
             foreach (Location location in locations)
             {
                 log.LogInformation(location.Name);
 
-                var response = await httpClient.GetAsync(location.Url);
+                var response = await policy.ExecuteAsync(async ctx =>
+                {
+                    var response = await httpClient.GetAsync(location.Url);
+                    response.EnsureSuccessStatusCode();
+                    return response;
+                }, pollyContext);
 
                 // deserialize http content into an intermediary string
                 var stringContent = await response.Content.ReadAsStringAsync();
