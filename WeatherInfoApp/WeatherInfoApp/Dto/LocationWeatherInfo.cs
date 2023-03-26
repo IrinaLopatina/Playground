@@ -1,4 +1,6 @@
-﻿namespace WeatherInfoApp.Dto
+﻿using System;
+
+namespace WeatherInfoApp.Dto
 {
     public class LocationWeatherInfo
     {
@@ -7,5 +9,6 @@
         public double Temperature { get; set; }
         public double WindStrength { get; set; }
         public double Humidity { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

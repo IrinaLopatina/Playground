@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using WeatherInfoApp.Dto;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace WeatherInfoApp
 {
@@ -33,8 +34,12 @@ namespace WeatherInfoApp
             {
                 log.LogInformation(location.Name);
 
-
                 var response = await httpClient.GetAsync(location.Url);
+
+                // deserialize http content into an intermediary string
+                var stringContent = await response.Content.ReadAsStringAsync();
+
+                var result = JsonConvert.DeserializeObject<LocationWeatherInfo>(stringContent);
             }
         }
     }
