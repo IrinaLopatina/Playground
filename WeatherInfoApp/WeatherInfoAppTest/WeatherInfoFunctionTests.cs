@@ -6,6 +6,7 @@ using WeatherInfoApp;
 using WeatherInfoApp.Dto;
 using Moq.Protected;
 using WeatherInfoAppTest.TestHelpers;
+using Azure.Messaging.ServiceBus;
 
 namespace WeatherInfoAppTest
 {
@@ -31,11 +32,12 @@ namespace WeatherInfoAppTest
         public async void Verify_Get_WithSpecifiedUrl_IsCalledOnce_ForEachLocation()
         {
             var timerInfo = default(TimerInfo); //null
-            var log = Mock.Of<ILogger>();
             var locations = MockData.GetLocations();
+            var serviceBusMessageCollector = new Mock<IAsyncCollector<ServiceBusMessage>>();
+            var log = Mock.Of<ILogger>();
 
             //Act
-            await sut.Run(timerInfo, locations, log);
+            await sut.Run(timerInfo, locations, serviceBusMessageCollector.Object, log);
 
             //Assert
             foreach (Location location in locations)
