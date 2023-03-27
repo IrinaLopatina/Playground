@@ -29,7 +29,7 @@ namespace WeatherInfoAppTest
         }
 
         [Fact]
-        public async void Verify_Get_WithSpecifiedUrl_IsCalledOnce_ForEachLocation()
+        public async void Function_ShouldSend_GetWithSpecifiedUrl_OnceForEachLocation()
         {
             var timerInfo = default(TimerInfo); //null
             var locations = MockData.GetLocations();
@@ -48,6 +48,30 @@ namespace WeatherInfoAppTest
                                    ItExpr.IsAny<CancellationToken>()
                 );
             }
+        }
+
+
+        [Fact]
+        public async Task Function_ShouldAdd_ServiceBussMessage_ForEachLocation()
+        {
+            //Arrange
+            var timerInfo = default(TimerInfo); //null
+            var locations = MockData.GetLocations();
+            var serviceBusMessageCollector = new Mock<IAsyncCollector<ServiceBusMessage>>();
+            var log = Mock.Of<ILogger>();
+
+            serviceBusMessageCollector
+                .Setup(x => x.AddAsync(It.IsAny<ServiceBusMessage>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.CompletedTask)
+                .Verifiable();
+
+            //Act
+            await sut.Run(timerInfo, locations, serviceBusMessageCollector.Object, log);
+
+            //Assert
+            serviceBusMessageCollector.Verify(x => x.AddAsync(It.IsAny<ServiceBusMessage>(), It.IsAny<CancellationToken>()), Times.Exactly(locations.Count));
+
+            //Todo: test messages
         }
     }
 }
