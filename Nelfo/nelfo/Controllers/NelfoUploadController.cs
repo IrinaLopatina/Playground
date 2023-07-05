@@ -1,59 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using nelfo.Dtos;
 
-namespace cwproj.Controllers;
-
-public class HealthCheckRequest
-{
-    public bool? CheckMoreStuff { get; set; }
-}
-
-public class HealthCheckResponse
-{
-    public string? Message { get; set; }
-}
-
-public class SellerProductsResponse
-{
-    public Seller? Seller { get; set; }
-    public List<Product> Products { get; set; } = new List<Product>();
-}
-
-public class Product
-{
-    public string? ProductNo { get; }
-    public string? Description { get; }
-    public string? PriceUnit { get; }
-    public decimal? Price { get; }
-    public int? Quantity { get; }
-    public decimal? Weight { get; private set; }
-
-    public Product(string? productNo, string? description, string? priceUnit, decimal? price, int? quantity)
-    {
-        ProductNo = productNo;
-        Description = description;
-        PriceUnit = priceUnit;
-        Price = price;
-        Quantity = quantity;
-    }
-
-    public void SetWeight (decimal? weight)
-    {
-        Weight = weight;
-    }
-}
-
-public class Seller
-{
-    public string? OrgNo { get; }
-    public string? OrgName { get; }
-
-    public Seller(string? orgNo, string? orgName)
-    {
-        OrgNo = orgNo;
-        OrgName = orgName;
-    }
-}
-
+namespace nelfo.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
@@ -83,7 +31,7 @@ public class NelfoUploadController : ControllerBase
     {
         _logger.LogInformation($"Received file {file.FileName} with size in bytes {file.Length}");
 
-        //process file content
+        //process file content - todo: move to service
         Seller? seller;
         List<Product> products = new();
         using (var reader = new StreamReader(file.OpenReadStream()))
