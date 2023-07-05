@@ -12,7 +12,7 @@ public class HealthCheckResponse
     public string? Message { get; set; }
 }
 
-public class ProductsFromFileResponse
+public class SellerProductsResponse
 {
     public Seller? Seller { get; set; }
     public List<Product> Products { get; set; } = new List<Product>();
@@ -20,12 +20,12 @@ public class ProductsFromFileResponse
 
 public class Product
 {
-    public string? ProductNo { get; set; }
-    public string? Description { get; set; }
-    public string? PriceUnit { get; set; }
-    public decimal? Price { get; set; }
-    public int? Quantity { get; set; }
-    public decimal? Weight { get; set; }
+    public string? ProductNo { get; }
+    public string? Description { get; }
+    public string? PriceUnit { get; }
+    public decimal? Price { get; }
+    public int? Quantity { get; }
+    public decimal? Weight { get; private set; }
 
     public Product(string? productNo, string? description, string? priceUnit, decimal? price, int? quantity)
     {
@@ -34,6 +34,11 @@ public class Product
         PriceUnit = priceUnit;
         Price = price;
         Quantity = quantity;
+    }
+
+    public void SetWeight (decimal? weight)
+    {
+        Weight = weight;
     }
 }
 
@@ -74,15 +79,13 @@ public class NelfoUploadController : ControllerBase
     }
 
     [HttpPost]
-    public ProductsFromFileResponse ProductsFromFile(IFormFile file)
+    public SellerProductsResponse SellerProducts(IFormFile file)
     {
         _logger.LogInformation($"Received file {file.FileName} with size in bytes {file.Length}");
 
         //process file content
         Seller? seller;
-        List<Product> products = new List<Product>();
-
-        //var result = new StringBuilder();
+        List<Product> products = new();
         using (var reader = new StreamReader(file.OpenReadStream()))
         {
             var header = reader.ReadLine();
@@ -96,42 +99,52 @@ public class NelfoUploadController : ControllerBase
 
                 nextProduct = ParseProductInfo(line, product);
                 if (nextProduct != null)
+                {
                     products.Add(nextProduct);
-
-                //result.AppendLine(line);
+                    product = nextProduct;
+                }
             }
         }
-        
-        //var dummy = result.ToString();
 
-        return new ProductsFromFileResponse()
+        return new SellerProductsResponse()
         {
             Seller = seller,
             Products = products
         };
     }
 
-    Seller? ParseSellerInfo(string? header)
+    Seller? ParseSellerInfo(string? line)
     {
-        var sellerArray = header.Split(_separators);
+        var sellerInfo = line.Split(_separators);
 
-        if (sellerArray.Length < 11) return null;
-        if (!sellerArray[0].Equals("VH")) return null;
-        if (!sellerArray[1].Equals("EFONELFO")) return null;
-        if (!sellerArray[2].Equals("4.0")) return null;
+        if (sellerInfo.Length >= 11 &&
+            sellerInfo[0].Equals("VH") &&
+            sellerInfo[1].Equals("EFONELFO") &&
+            sellerInfo[2].Equals("4.0"))
+        {
+            return new Seller(sellerInfo[3], sellerInfo[10]);
+        }
 
-        return new Seller(sellerArray[3], sellerArray[10]);
+        return null;
     }
 
     Product? ParseProductInfo(string? line, Product product)
     {
-        var productArray = line.Split(_separators);
+        var productInfo = line.Split(_separators);
 
-        if (productArray.Length >= 17 &&
-            productArray[0].Equals("VL") &&
-            productArray[1].Equals("1"))
+        if (productInfo.Length >= 17 &&
+            productInfo[0].Equals("VL") &&
+            productInfo[1].Equals("1"))
         {
-            return new Product(productArray[2], productArray[3], productArray[6], decimal.Parse(productArray[8]), int.Parse(productArray[9]));
+            return new Product(productInfo[2], productInfo[3], productInfo[6], decimal.Parse(productInfo[8]), int.Parse(productInfo[9]));
+        }
+
+        if (product != null &&
+            productInfo.Length == 3 &&
+            productInfo[0].Equals("VX") &&
+            productInfo[1].Equals("VEKT"))
+        {
+            product.SetWeight(decimal.Parse(productInfo[2]));
         }
 
         return null;
