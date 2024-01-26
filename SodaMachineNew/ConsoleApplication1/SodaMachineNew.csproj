@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Inventory\InventoryItem.cs" />
+    <Compile Include="Model\Inventory\Inventory.cs" />
     <Compile Include="Model\MySodaMachineNew.cs" />
     <Compile Include="Model\Inventory\Soda.cs" />
     <Compile Include="Program.cs" />

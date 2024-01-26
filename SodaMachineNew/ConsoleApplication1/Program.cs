@@ -1,4 +1,5 @@
 ﻿using SodaMachineNew.Model;
+using SodaMachineNew.Model.Inventory;
 
 namespace SoodaMachineNew
 {
@@ -6,7 +7,8 @@ namespace SoodaMachineNew
     {
         private static void Main(string[] args)
         {
-            MySodaMachineNew sodaMachine = new MySodaMachineNew();
+            Inventory inventory = new Inventory();
+            MySodaMachineNew sodaMachine = new MySodaMachineNew(inventory);
             sodaMachine.Start();
         }
     }

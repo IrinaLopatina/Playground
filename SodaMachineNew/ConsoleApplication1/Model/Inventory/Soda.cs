@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace SodaMachineNew.Model.Inventory
 {
-    internal class Soda
+    public class Soda
     {
-        public string Name { get; set; }
-        public int Nr { get; set; }
+        public string Name { get; private set; }
+        public double Price { get; private set; }
 
+        public Soda(string name, double price)
+        {
+            Name = name;
+            Price = price;
+        }
     }
 }
