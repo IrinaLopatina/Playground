@@ -24,14 +24,7 @@ namespace SodaMachineNew.Model
         {
             while (true)
             {
-                Console.WriteLine("\n\nAvailable commands:");
-                Console.WriteLine("insert (money) - Money put into money slot");
-                Console.WriteLine("order (coke, sprite, fanta) - Order from machines buttons");
-                Console.WriteLine("sms order (coke, sprite, fanta) - Order sent by sms");
-                Console.WriteLine("recall - gives money back");
-                Console.WriteLine("-------");
-                Console.WriteLine("Inserted money: " + money);
-                Console.WriteLine("-------\n\n");
+                PrintInstructions();
 
                 var input = Console.ReadLine();
 
@@ -61,6 +54,18 @@ namespace SodaMachineNew.Model
                 }
 
             }
+        }
+
+        private void PrintInstructions()
+        {
+            Console.WriteLine("\n\nAvailable commands:");
+            Console.WriteLine("insert (money) - Money put into money slot");
+            Console.WriteLine("order (coke, sprite, fanta) - Order from machines buttons");
+            Console.WriteLine("sms order (coke, sprite, fanta) - Order sent by sms");
+            Console.WriteLine("recall - gives money back");
+            Console.WriteLine("-------");
+            Console.WriteLine("Inserted money: " + money);
+            Console.WriteLine("-------\n\n");
         }
     }
 }

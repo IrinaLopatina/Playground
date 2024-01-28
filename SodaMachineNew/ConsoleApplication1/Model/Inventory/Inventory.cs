@@ -8,13 +8,6 @@ using System.Threading.Tasks;
 
 namespace SodaMachineNew.Model.Inventory
 {
-    public interface IInventory
-    {
-        InventoryItem GetInventoryItemByName(string name);
-        double OrderSoda(string sodaName, double money);
-        void SmsOrderSoda(string sodaName);
-    }
-
     public class Inventory: IInventory
     {
         private List<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem> { };
@@ -39,12 +32,13 @@ namespace SodaMachineNew.Model.Inventory
             InventoryItems.Add(new InventoryItem(new Soda(spriteName, spritePrice), spriteNr));
         }
 
+        /// <inheritdoc />
         public InventoryItem GetInventoryItemByName(string sodaName)
         { 
             return InventoryItems.FirstOrDefault(x => x.Soda.Name == sodaName);
         }
 
-        //inheritdoc
+        /// <inheritdoc />
         public double OrderSoda(string sodaName, double money)
         {
             var item = GetInventoryItemByName(sodaName);
@@ -74,6 +68,7 @@ namespace SodaMachineNew.Model.Inventory
             return money;
         }
 
+        /// <inheritdoc />
         public void SmsOrderSoda(string sodaName)
         {
             var item = GetInventoryItemByName(sodaName);
