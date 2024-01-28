@@ -17,7 +17,12 @@ namespace SodaMachineNew.Model.Inventory
         /// <param name="name"></param>
         /// <returns></returns>
         InventoryItem GetInventoryItemByName(string name);
-        
+
+        /// <summary>
+        /// Adds inventory item to inventory if no item with such name already exists and gives a message otherwise
+        /// </summary>
+        void AddInventoryItem(InventoryItem item);
+
         /// <summary>
         /// Gives out soda and change, reduces inventory quantity by 1
         /// </summary>

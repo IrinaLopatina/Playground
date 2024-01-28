@@ -27,15 +27,30 @@ namespace SodaMachineNew.Model.Inventory
 
         public Inventory() 
         {
-            InventoryItems.Add(new InventoryItem(new Soda(cokeName, cokePrice), cokeNr));
-            InventoryItems.Add(new InventoryItem(new Soda(fantaName, fantaPrice), fantaNr));
-            InventoryItems.Add(new InventoryItem(new Soda(spriteName, spritePrice), spriteNr));
+            AddInventoryItem(new InventoryItem(new Soda(cokeName, cokePrice), cokeNr));
+            AddInventoryItem(new InventoryItem(new Soda(fantaName, fantaPrice), fantaNr));
+            AddInventoryItem(new InventoryItem(new Soda(spriteName, spritePrice), spriteNr));
         }
 
         /// <inheritdoc />
         public InventoryItem GetInventoryItemByName(string sodaName)
         { 
             return InventoryItems.FirstOrDefault(x => x.Soda.Name == sodaName);
+        }
+
+        /// <inheritdoc />
+        public void AddInventoryItem(InventoryItem item) 
+        {
+            var existingItem = GetInventoryItemByName(item.Soda.Name);
+            if (existingItem == null)
+            {
+                InventoryItems.Add(item);
+            }
+            else
+            {
+                Console.WriteLine($"Item with name {item.Soda.Name} already exists");
+            }
+            return;
         }
 
         /// <inheritdoc />
