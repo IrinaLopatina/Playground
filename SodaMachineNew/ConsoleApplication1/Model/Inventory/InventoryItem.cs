@@ -9,16 +9,16 @@ namespace SodaMachineNew.Model.Inventory
     public class InventoryItem
     {
         public Soda Soda { get; private set; }
-        public int Nr { get; private set; }
-        public InventoryItem(Soda soda, int nr) 
+        public int Quantity { get; private set; }
+        public InventoryItem(Soda soda, int quantity) 
         {
             Soda = soda;
-            Nr = nr;
+            Quantity = quantity;
         }
 
-        public void ReduceQuantityByNumber(int number)
+        public void ReduceQuantityByNumber(int quantity)
         {  
-            Nr = -- number; 
+            Quantity = -- quantity; 
         }
     }
 }

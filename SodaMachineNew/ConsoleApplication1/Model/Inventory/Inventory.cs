@@ -24,8 +24,10 @@ namespace SodaMachineNew.Model.Inventory
         private static readonly double spritePrice = 15;
         private static readonly int spriteNr = 3;
 
+        /// <inheritdoc />
+        public Inventory(){}
 
-        public Inventory() 
+        public void Initialize()
         {
             AddInventoryItem(new InventoryItem(new Soda(cokeName, cokePrice), cokeNr));
             AddInventoryItem(new InventoryItem(new Soda(fantaName, fantaPrice), fantaNr));
@@ -64,7 +66,7 @@ namespace SodaMachineNew.Model.Inventory
                 return money;
             }
             
-            if (money >= item.Soda.Price && item.Nr > 0)
+            if (money >= item.Soda.Price && item.Quantity > 0)
             {
                 Console.WriteLine("Giving " + item.Soda.Name + " out");
                 money -= item.Soda.Price;
@@ -72,7 +74,7 @@ namespace SodaMachineNew.Model.Inventory
                 money = 0;
                 item.ReduceQuantityByNumber(1);
             }
-            else if (item.Nr == 0)
+            else if (item.Quantity == 0)
             {
                 Console.WriteLine($"No {item.Soda.Name} left");
             }
@@ -94,7 +96,7 @@ namespace SodaMachineNew.Model.Inventory
                 return;
             }
 
-            if (item.Nr > 0)
+            if (item.Quantity > 0)
             {
                 Console.WriteLine($"Giving {item.Soda.Name} out");
                 item.ReduceQuantityByNumber(1);

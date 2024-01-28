@@ -12,6 +12,11 @@ namespace SodaMachineNew.Model.Inventory
     public interface IInventory
     {
         /// <summary>
+        /// Initializes inventory with initial/standard values
+        /// </summary>
+        void Initialize();
+
+        /// <summary>
         /// Gets inventory item by name, returns null if no such item exists
         /// </summary>
         /// <param name="name"></param>
