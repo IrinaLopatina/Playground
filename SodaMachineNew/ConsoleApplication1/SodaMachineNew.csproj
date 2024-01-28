@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Command\CommandBuilder.cs" />
+    <Compile Include="Model\Command\ICommand.cs" />
+    <Compile Include="Model\Command\InsertCommand.cs" />
+    <Compile Include="Model\Command\OrderCommand.cs" />
+    <Compile Include="Model\Command\RecallCommand.cs" />
+    <Compile Include="Model\Command\SmsOrderCommand.cs" />
     <Compile Include="Model\Inventory\IInventory.cs" />
     <Compile Include="Model\Inventory\InventoryItem.cs" />
     <Compile Include="Model\Inventory\Inventory.cs" />

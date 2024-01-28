@@ -1,9 +1,6 @@
-﻿using SodaMachineNew.Model.Inventory;
+﻿using SodaMachineNew.Model.Command;
+using SodaMachineNew.Model.Inventory;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SodaMachineNew.Model
 {
@@ -28,31 +25,8 @@ namespace SodaMachineNew.Model
 
                 var input = Console.ReadLine();
 
-                if (input.StartsWith("insert"))
-                {
-                    //Add to credit
-                    money += int.Parse(input.Split(' ')[1]);
-                    Console.WriteLine("Adding " + int.Parse(input.Split(' ')[1]) + " to credit");
-                }
-                if (input.StartsWith("order"))
-                {
-                    var csoda = input.Split(' ')[1];
-                    money = Inventory.OrderSoda(csoda, money);
-                }
-                if (input.StartsWith("sms order"))
-                {
-                    var csoda = input.Split(' ')[2];
-
-                    Inventory.SmsOrderSoda(csoda);
-                }
-
-                if (input.Equals("recall"))
-                {
-                    //Give money back
-                    Console.WriteLine("Returning " + money + " to customer");
-                    money = 0;
-                }
-
+                var command = new CommandBuilder().Build(input);
+                money = command.Execute(money, input, Inventory);
             }
         }
 
