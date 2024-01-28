@@ -10,7 +10,7 @@ namespace SodaMachineNew.Model.Inventory
 {
     public class Inventory: IInventory
     {
-        private List<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem> { };
+        public List<InventoryItem> InventoryItems { get; private set; } = new List<InventoryItem> { };
 
         private static readonly string cokeName = "coke";
         private static readonly double cokePrice = 20;
