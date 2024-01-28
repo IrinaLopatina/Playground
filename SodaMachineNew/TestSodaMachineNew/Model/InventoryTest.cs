@@ -142,5 +142,39 @@ namespace TestSodaMachineNew.Model
             var output = stringWriter.ToString();
             Assert.Equal("No sprite left\r\n", output);
         }
+
+        [Fact]
+        public void SmsOrderSoda_WhenUnknownSodaType_GivesMessage()
+        {
+            //arrange
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            inventory.SmsOrderSoda("fanta");
+
+            //assert
+            var output = stringWriter.ToString();
+            Assert.Equal("No such soda\r\n", output);
+        }
+
+        [Fact]
+        public void SmsOrderSoda_WhenKnownSodaType_GivesMessageAndReducesQuantity()
+        {
+            //arrange
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            inventory.SmsOrderSoda("coke");
+
+            //assert
+            var item = inventory.GetInventoryItemByName("coke");
+
+            Assert.NotNull(item);
+            Assert.Equal(4, item.Quantity);
+            var output = stringWriter.ToString() ;
+            Assert.Equal($"Giving {item.Soda.Name} out\r\n", output);
+        }
     }
 }

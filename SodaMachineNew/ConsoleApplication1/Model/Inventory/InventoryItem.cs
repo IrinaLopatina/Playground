@@ -18,7 +18,7 @@ namespace SodaMachineNew.Model.Inventory
 
         public void ReduceQuantityByNumber(int quantity)
         {  
-            Quantity = -- quantity; 
+            Quantity -= quantity; 
         }
     }
 }
