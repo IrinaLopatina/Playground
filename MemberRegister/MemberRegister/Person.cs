@@ -24,7 +24,7 @@
             var birthDate = DateOnly.Parse(input);
 
             if (birthDate.Year + ageMin > DateOnly.FromDateTime(DateTime.Now).Year)
-                throw new ArgumentException($"Person can be a member from the year of he/she turns {ageMin} years. Correct the birth date.");
+                throw new ArgumentException($"Person can be a member from the year when he/she turns {ageMin}. Correct the birth date.");
         }
 
     }
