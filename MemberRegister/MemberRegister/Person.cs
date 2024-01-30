@@ -2,7 +2,7 @@
 {
     public class Person
     {
-        private static readonly int nameLength = 5;
+        private static readonly int nameLengthMin = 5;
         private static readonly int ageMin = 15;
         public string Name { get; private set; } = string.Empty;
         public DateOnly BirthDate { get; private set; } = DateOnly.MinValue;
@@ -15,8 +15,8 @@
 
         public static void ValidateName(string input)
         {
-            if (!string.IsNullOrEmpty(input) && input.Length < nameLength)
-                throw new ArgumentException($"Length of the name must contain {nameLength} or more symbols. Correct the name.");
+            if (!string.IsNullOrEmpty(input) && input.Length < nameLengthMin)
+                throw new ArgumentException($"Length of the name must contain {nameLengthMin} or more symbols. Correct the name.");
         }
 
         public static void ValidateBirthDate(string input)

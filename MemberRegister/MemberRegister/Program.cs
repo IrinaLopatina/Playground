@@ -3,11 +3,11 @@ using MemberRegister;
 
 Console.WriteLine("Starting registering members....");
 
-RegisterHandler registerHandler = new() { };
+IRegisterHandler registerHandler = new RegisterHandler() { };
 
 while (true)
 {
-    string name = registerHandler.RegisterName();
+    string name = registerHandler.RegisterValidName();
     if (string.IsNullOrEmpty(name))
     {
         registerHandler.SaveRegisterToFile();
@@ -15,9 +15,9 @@ while (true)
         return;
     }
 
-    DateOnly birthDate = registerHandler.RegisterBirthDate();
+    DateOnly birthDate = registerHandler.RegisterValidBirthDate();
 
-    registerHandler.AddPersonToRegister(name, birthDate);
+    registerHandler.AddPerson(name, birthDate);
 }
 
 

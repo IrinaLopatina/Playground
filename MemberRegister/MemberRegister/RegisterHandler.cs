@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MemberRegister
+﻿namespace MemberRegister
 {
     public class RegisterHandler: IRegisterHandler
     {
@@ -12,7 +6,7 @@ namespace MemberRegister
         const string separator = "\t";
         readonly List<Person> register = new() { };
 
-        public string RegisterName()
+        public string RegisterValidName()
         {
             var input = string.Empty;
             var validName = false;
@@ -35,10 +29,8 @@ namespace MemberRegister
             }
             return input;
         }
-        public DateOnly RegisterBirthDate() 
+        public DateOnly RegisterValidBirthDate() 
         {
-            //return DateOnly.FromDateTime(DateTime.Now);
-
             var input = string.Empty;
             var validBirthDate = false;
 
@@ -62,7 +54,7 @@ namespace MemberRegister
         }
 
 
-        public void AddPersonToRegister(string name, DateOnly birthDate)
+        public void AddPerson(string name, DateOnly birthDate) //valid parameter values
         {
             register.Add(new Person(name, birthDate));
         }
