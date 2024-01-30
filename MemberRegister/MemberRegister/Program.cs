@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using MemberRegister;
 
-Console.WriteLine("Starting registering members....");
+Console.WriteLine("Starting registering of new members...\n");
 
 IRegisterHandler registerHandler = new RegisterHandler() { };
 
