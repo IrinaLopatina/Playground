@@ -4,6 +4,7 @@
     {
         private static readonly int nameLengthMin = 5;
         private static readonly int ageMin = 15;
+
         public string Name { get; private set; } = string.Empty;
         public DateOnly BirthDate { get; private set; } = DateOnly.MinValue;
 
