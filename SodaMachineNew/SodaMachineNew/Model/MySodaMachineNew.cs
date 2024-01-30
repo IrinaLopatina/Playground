@@ -7,11 +7,14 @@ namespace SodaMachineNew.Model
     internal class MySodaMachineNew
     {
         private static double money;
-        public IInventory Inventory { get; private set; }    
+        public IInventory Inventory { get; private set; }
+        public ICommandList CommandList {  get; private set; }
 
-        public MySodaMachineNew(IInventory inventory)
+
+        public MySodaMachineNew(IInventory inventory, ICommandList commandList)
         {
             Inventory = inventory;
+            CommandList = commandList;
         }
 
         /// <summary>
@@ -25,18 +28,19 @@ namespace SodaMachineNew.Model
 
                 var input = Console.ReadLine();
 
-                var command = new CommandBuilder().Build(input);
-                money = command.Execute(money, input, Inventory);
+                var command = CommandList.GetCommandByName(input);
+                if (command != null)
+                    money = command.Execute(money, input, Inventory);
+                else
+                    Console.WriteLine("Nonexistent command. Try again.");
             }
         }
 
         private void PrintInstructions()
         {
             Console.WriteLine("\n\nAvailable commands:");
-            Console.WriteLine("insert (money) - Money put into money slot");
-            Console.WriteLine("order (coke, sprite, fanta) - Order from machines buttons");
-            Console.WriteLine("sms order (coke, sprite, fanta) - Order sent by sms");
-            Console.WriteLine("recall - gives money back");
+
+            CommandList.GetOrderedCommandList().ForEach(x => Console.WriteLine(x.Description));
             Console.WriteLine("-------");
             Console.WriteLine("Inserted money: " + money);
             Console.WriteLine("-------\n\n");
