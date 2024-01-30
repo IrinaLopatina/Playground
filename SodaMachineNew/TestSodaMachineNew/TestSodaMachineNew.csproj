@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleApplication1\SodaMachineNew.csproj" />
+    <ProjectReference Include="..\SodaMachineNew\SodaMachineNew.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SodaMachineNew", "ConsoleApplication1\SodaMachineNew.csproj", "{9DFC3066-31E8-4483-A3EA-421E68B5CD14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SodaMachineNew", "SodaMachineNew\SodaMachineNew.csproj", "{9DFC3066-31E8-4483-A3EA-421E68B5CD14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSodaMachineNew", "TestSodaMachineNew\TestSodaMachineNew.csproj", "{0F27BF0A-A6F1-40BF-91A8-2E08598422C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSodaMachineNew", "TestSodaMachineNew\TestSodaMachineNew.csproj", "{0F27BF0A-A6F1-40BF-91A8-2E08598422C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
